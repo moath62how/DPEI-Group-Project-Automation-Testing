@@ -55,11 +55,7 @@ This project is part of the **DEPI** course, developed by **ONL2_SWD6_S1** team 
 - Integration with CI/CD pipelines for continuous testing.
 
 ## How to Run the Tests
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/your-repo-link.git
-   cd your-repo
-   ```
+1. Clone the repository.
 2. Install dependencies.
 3. Run the test suite using Selenium, Postman, or JMeter.
 4. View test reports and analyze results.
@@ -68,6 +64,4 @@ This project is part of the **DEPI** course, developed by **ONL2_SWD6_S1** team 
 
 🚀 **Contributions & Feedback**: Feel free to open issues or pull requests!
 
-```
 
-Make sure to replace placeholders like `your-repo-link` and team member names. Let me know if you need any modifications! 🚀
