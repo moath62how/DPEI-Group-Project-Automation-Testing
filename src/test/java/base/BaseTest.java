@@ -1,15 +1,13 @@
+package base;
+
 import com.base.BasePage;
 import com.orangehrm.page.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
-import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
 	private static final String ORANGE_URL = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
