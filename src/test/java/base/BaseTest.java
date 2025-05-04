@@ -13,7 +13,7 @@ public class BaseTest {
 	private static final String ORANGE_URL = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
 	protected BasePage basePage;
 	protected LoginPage loginPage;
-	WebDriver driver;
+	 protected WebDriver driver;
 
 	@BeforeSuite
 	public void setUp() {

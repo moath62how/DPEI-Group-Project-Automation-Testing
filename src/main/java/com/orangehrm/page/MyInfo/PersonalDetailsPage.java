@@ -2,7 +2,6 @@ package com.orangehrm.page.MyInfo;
 
 import com.base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 public class PersonalDetailsPage extends BasePage {
 
@@ -14,7 +13,7 @@ public class PersonalDetailsPage extends BasePage {
 	private final By employeeLastName = By.name("lastName");
 	private final By employeeId = By.cssSelector("div.orangehrm-edit-employee-content div:nth-child(1) div.oxd-grid-item:nth-child(2) input");
 	private final By otherId = By.cssSelector("div.orangehrm-edit-employee-content div:nth-child(1) div.oxd-grid-item:nth-child(3) input");
-	private final By driversLicense = By.cssSelector("div.orangehrm-edit-employee-content div:nth-child(2) div.oxd-grid-item:nth-child(1) input");
+	private final By driversLicense = By.xpath("/html[1]/body[1]/div[1]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/div[2]/div[1]/form[1]/div[2]/div[2]/div[1]/div[1]/div[2]/input[1]");
 	private final By licenseExpiryDate = By.cssSelector("div.orangehrm-edit-employee-content div:nth-child(2) div.oxd-grid-item:nth-child(2) input");
 	private final By nationalityDropdown = By.xpath("//label[text()='Nationality']/following::div[@class='oxd-select-text-input'][1]");
 
@@ -33,7 +32,9 @@ public class PersonalDetailsPage extends BasePage {
 	private final By firstAttachmentDeleteButton = By.xpath("//div[@class='orangehrm-container']/div[2]/div[1]//button[1]");
 
 	private final By popUpAlert = By.xpath("//i[@class='oxd-icon bi-check2 oxd-toast-icon']");
-	public PersonalDetailsPage(WebDriver driver) {
+	private final By savePersonalDetailsButton = By.xpath("//div[@class='orangehrm-horizontal-padding orangehrm-vertical-padding']//button[@type='submit'][normalize-space()='Save']");
+	private final By requiredErrorMessage = By.xpath("//span[@class='oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message']");
+	public PersonalDetailsPage() {
 		this.setDriver(driver);
 	}
 
@@ -49,9 +50,7 @@ public class PersonalDetailsPage extends BasePage {
 		set(employeeLastName, lastName);
 	}
 
-	public String getEmployeeId() {
-		return find(employeeId).getAttribute("value");
-	}
+
 
 	public void updateDriverLicenseInfo(String licenseNumber, String expiryDate) {
 		set(driversLicense, licenseNumber);
@@ -69,7 +68,13 @@ public class PersonalDetailsPage extends BasePage {
 		By bloodTypeOption = By.xpath(String.format("//span[text()='%s']", bloodType));
 		click(bloodTypeOption);
 	}
-
+	public boolean isPopupAlertDisplayed(){
+		try{
+			return find(popUpAlert).isDisplayed();
+		} catch (Exception ignored) {
+			return false;
+		}
+	}
 	public void addAttachment(String filePath, String description) {
 		click(addAttachmentButton);
 		find(attachmentFileInput).sendKeys(filePath);
@@ -80,9 +85,19 @@ public class PersonalDetailsPage extends BasePage {
 	public String getFirstAttachmentFileName() {
 		return find(firstAttachmentFileName).getText();
 	}
+	public boolean isRequiredMsgDisplayed(){
+		try{
+			return find(requiredErrorMessage).isDisplayed();
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public void deleteFirstAttachment() {
 		click(firstAttachmentDeleteButton);
+	}
+	public void savePersonalDetailsData(){
+		click(savePersonalDetailsButton);
 	}
 
 

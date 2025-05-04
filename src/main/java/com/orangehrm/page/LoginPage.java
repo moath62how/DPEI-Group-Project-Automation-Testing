@@ -2,7 +2,6 @@ package com.orangehrm.page;
 
 import com.base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 public class LoginPage extends BasePage {
 	private final By usernameFieldLocator = By.name("username"),
@@ -11,10 +10,9 @@ public class LoginPage extends BasePage {
 			alertLocator = By.xpath("//div[@role='alert']");
 
 
-
 	public DashboardPage login(String username, String password) {
-		set(usernameFieldLocator,username);
-		set(passwordFieldLocator,password);
+		set(usernameFieldLocator, username);
+		set(passwordFieldLocator, password);
 		click(submitButtonLocator);
 		DashboardPage dashboard = new DashboardPage();
 		dashboard.setDriver(this.driver);
@@ -22,9 +20,14 @@ public class LoginPage extends BasePage {
 	}
 
 	public Boolean isAlertDisplayed() {
-		return find(alertLocator).isDisplayed();
+		try {
+			return find(alertLocator).isDisplayed();
+		} catch (Exception ignore) {
+			return false;
+		}
 	}
-	public String getAlertText(){
+
+	public String getAlertText() {
 		return find(alertLocator).getText();
 	}
 
