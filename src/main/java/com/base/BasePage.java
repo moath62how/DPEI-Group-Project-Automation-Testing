@@ -15,7 +15,7 @@ public class BasePage {
 	}
 
 	protected WebElement find(By locator) {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 	}
 
@@ -48,6 +48,12 @@ public class BasePage {
 	}
 	protected void setDropDown(By locator,String value){
 		click(locator);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait.until(ExpectedConditions.elementToBeClickable(
+				By.xpath(".//*[text()='" + value + "']"))).click();
+	}
+	protected void setHintField(By locator,String value){
+		set(locator,value);
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath(".//*[text()='" + value + "']"))).click();

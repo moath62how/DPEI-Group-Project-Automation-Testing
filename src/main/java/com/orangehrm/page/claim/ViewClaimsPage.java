@@ -13,18 +13,31 @@ public class ViewClaimsPage extends BasePage {
 	private final By referenceIdField = By.xpath("/html/body/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[1]/div/div[2]/div/div[2]/div/div/input");
 	private final By resetButton = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[3]/button[1]");
 	private final By searchButton = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[3]/button[2]");
+	private final By searchResultNumber = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div[2]/div[2]/div/span");
+	private final By dateErrorMessage = By.xpath("//span[@class='oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message']");
 
 	public void searchQuery(String employeeName, String fromDate, String toDate, String referenceId, String include, String eventName, String status) {
-		set(employeeNameField, employeeName);
+		setHintField(employeeNameField, employeeName);
 		set(fromDateField, fromDate);
 		set(toDateField,toDate);
 		set(referenceIdField,referenceId);
 		setDropDown(eventNameDropDown,eventName);
 		setDropDown(statusDropDown,status);
 		setDropDown(includeDropDown,include);
-		System.out.println("I am here");
 		click(searchButton);
+
+	}
+	public int getNumberOfQueryResults(){
+		String str  = find(searchResultNumber).getText();
+		String numberStr = str.replaceAll("\\D+", "");
+		return Integer.parseInt(numberStr);
+	}
+	public boolean isDateErrorDisplayed(){
+		try {
+			return find(dateErrorMessage).isDisplayed();
+		} catch (Exception ignored) {
+			return false;
+		}
 	}
 
-//"oxd-select-text oxd-select-text--active"
 }

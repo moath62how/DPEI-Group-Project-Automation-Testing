@@ -7,7 +7,6 @@ public class PersonalDetailsPage extends BasePage {
 
 	private final By myInfoTab = By.linkText("My Info");
 
-	// Personal Details section locators
 	private final By employeeFirstName = By.name("firstName");
 	private final By employeeMiddleName = By.name("middleName");
 	private final By employeeLastName = By.name("lastName");
