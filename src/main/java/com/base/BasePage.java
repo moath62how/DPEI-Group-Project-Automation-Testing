@@ -1,5 +1,6 @@
 package com.base;
 
+import java.time.Instant;
 import java.util.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,32 +16,39 @@ public class BasePage {
 	}
 
 	protected WebElement find(By locator) {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 	}
 
 	protected List<WebElement> findElements(By locator){
-	return driver.findElements(locator);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+		return driver.findElements(locator);
 	}
 
 	protected void set(By locator, String text) {
-		var element = find(locator);
+		WebElement element = find(locator);
 		element.click();
-		element.sendKeys(Keys.CONTROL + "a");
-		element.sendKeys(Keys.DELETE);
-		element.clear();
+		try {
+			element.sendKeys(Keys.CONTROL + "a");
+			element.sendKeys(Keys.DELETE);
+			element.clear();
 
-		((JavascriptExecutor)driver).executeScript(
-				"arguments[0].value = '';", element);
+			((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", element);
 
-
-		try { Thread.sleep(200); } catch (Exception ignored) {}
-
-		element.sendKeys(text);
+			Thread.sleep(200);
+			element = find(locator);
+			element.sendKeys(text);
+		} catch (StaleElementReferenceException e) {
+			element = find(locator);
+			element.sendKeys(text);
+		} catch (Exception ignored) {
+		}
 	}
 
 	protected void click(By locator) {
-		find(locator).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
 	}
 
 	public String getUrl() {
@@ -57,5 +65,11 @@ public class BasePage {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		wait.until(ExpectedConditions.elementToBeClickable(
 				By.xpath(".//*[text()='" + value + "']"))).click();
+	}
+
+	public void uploadFile(By fileInputLocator, String imagePath) {
+		WebElement fileInput = find(fileInputLocator);
+		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';", fileInput);
+		fileInput.sendKeys(imagePath);
 	}
 }
