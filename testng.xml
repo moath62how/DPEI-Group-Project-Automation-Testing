@@ -10,6 +10,8 @@
             <class name="LoginTest"/>
             <class name="PerformancePageTest"/>
             <class name="RecruitmentTest"/>
+            <class name="BuzzTest"/>
+            <class name="MaintenanceTest"/>
         </classes>
     </test>
 </suite>

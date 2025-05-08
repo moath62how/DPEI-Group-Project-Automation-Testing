@@ -72,4 +72,23 @@ public class BasePage {
 		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';", fileInput);
 		fileInput.sendKeys(imagePath);
 	}
+	public void waitUntilTextIsNot(By locator, String baseText){
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(driver1 -> {
+			String text = driver1.findElement(locator).getText();
+			return !text.equals(baseText);
+		});
+	}
+	public boolean isNewTabOpenedAfterAction(By locator){
+		Set<String> originalTabs = driver.getWindowHandles();
+		click(locator);
+		boolean tabOpened = false;
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+			tabOpened = wait.until(d -> d.getWindowHandles().size() > originalTabs.size());
+		} catch (TimeoutException e) {
+			tabOpened = false;
+		}
+		return tabOpened;
+	}
 }
