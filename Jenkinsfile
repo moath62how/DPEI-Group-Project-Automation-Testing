@@ -4,12 +4,11 @@ pipeline {
 
 
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/moath62how/DPEI-Group-Project-Automation-Testing'   // Replace with your repo URL
-            }
-        }
+stage('Checkout') {
+    steps {
+        git branch: 'master', url: 'https://github.com/moath62how/DPEI-Group-Project-Automation-Testing'
+    }
+}
 
         stage('Build and Run Tests') {
             steps {
