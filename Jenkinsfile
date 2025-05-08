@@ -1,8 +1,6 @@
 pipeline {
     agent any
 
-
-
     stages {
         // Checkout stage is unnecessary, as Jenkins will automatically handle it
         // stage('Checkout') {
@@ -13,7 +11,13 @@ pipeline {
 
         stage('Build and Run Tests') {
             steps {
-                sh 'mvn clean test'
+                script {
+                    if (isUnix()) {
+                        sh 'mvn clean test'  // For Unix-based systems
+                    } else {
+                        bat 'mvn clean test'  // For Windows systems
+                    }
+                }
             }
         }
 
