@@ -1,14 +1,8 @@
 import base.BaseTest;
 import com.orangehrm.page.BuzzPage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.time.Duration;
 
 public class BuzzTest extends BaseTest {
     private BuzzPage buzzPage;
@@ -26,7 +20,7 @@ public class BuzzTest extends BaseTest {
     String videoUrl = "https://youtu.be/J7I6C2tYNfo?si=F5a5RlShytkeg0HS";
     String comment = "Nice post!";
     String sharedText = "Reshare.";
-
+    String editedText = "Edited Post.";
 
     @Test
     public void createNormalPostTest(){
@@ -57,12 +51,48 @@ public class BuzzTest extends BaseTest {
     @Test
     public void commentPostTest() {
         buzzPage.commentOnLatestPost(comment);
-        Assert.assertTrue(buzzPage.isCommentVisible());
+        Assert.assertTrue(buzzPage.isCommentDone());
     }
     @Test
     public void sharePostTest() {
         buzzPage.shareLatestPost(sharedText);
-        Assert.assertTrue(buzzPage.isPostPresent(sharedText));
+        Assert.assertTrue(buzzPage.isPostShared());
     }
 
+    @Test
+    public void showLikedListOfMostLikedPostsTest(){
+        String numberOfLikes = buzzPage.getNumberOfLikesOfMostLikedPosts();
+        if(!numberOfLikes.equals("0 Likes"))
+            Assert.assertTrue(buzzPage.isLikesListDisplayed());
+    }
+    @Test
+    public void showSharesListOfMostLatestPostTest(){
+        String numberOfLikes = buzzPage.getNumberOfSharesOfLatestPost();
+        if(!numberOfLikes.equals("0 Shares"))
+            Assert.assertTrue(buzzPage.isSharesListDisplayed());
+    }
+
+    @Test
+    public void showCommentsListOfMostCommentedPostsTest(){
+        buzzPage.getCommentsListOfMostCommentedPosts();
+        Assert.assertTrue(buzzPage.isCommentsListDisplayed());
+    }
+
+    @Test
+    public void deletePostTest(){
+        buzzPage.goToLatestPostOptions();
+        buzzPage.goToDeletePost();
+        buzzPage.confirmDeletePost();
+        Assert.assertTrue(buzzPage.isPostDeleted());
+    }
+
+    @Test
+    public void editMyPostTest(){
+        buzzPage.goToLatestPostOptions();
+        if(buzzPage.editPostPossibility()) {
+            buzzPage.goToEditMyPost();
+            buzzPage.editPost(editedText);
+            Assert.assertTrue(buzzPage.isPostedited());
+        }
+    }
 }

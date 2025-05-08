@@ -1,17 +1,11 @@
 package com.orangehrm.page;
-
 import com.base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
-import java.util.Set;
 
 public class MaintenancePage extends BasePage {
     private final By maintenanceTab = By.xpath("//span[normalize-space()='Maintenance']");
     private final By accessPassword = By.xpath("//input[@name='password']");
-    private String password = "admin123";
+    String password = "admin123";
     private final By confirmButton = By.xpath("//button[@type='submit']");
     private final By cancelAccessButton = By.xpath("//button[@type='button']");
 
@@ -21,7 +15,7 @@ public class MaintenancePage extends BasePage {
 
     private final By searchTextarea = By.xpath("//input[@placeholder='Type for hints...']");
     private final By dropdownSearch = By.cssSelector(".oxd-autocomplete-dropdown.--positon-bottom");
-    private String baseTextDropdown = "Searching....";
+    String baseTextDropdown = "Searching....";
     private final By searchButton = By.xpath("//button[@type='submit']");
     private final By tableTitleBar = By.xpath("//div[@role='rowgroup']//div[2]");
     private final By recordsFoundStatus = By.xpath("//span[@class='oxd-text oxd-text--span']");
@@ -30,7 +24,6 @@ public class MaintenancePage extends BasePage {
     private final By confirmPurgeAllButton = By.xpath("//button[normalize-space()='Yes, Purge']");
     private final By cancelPurgeAllButton = By.xpath("//button[normalize-space()='No, Cancel']");
     private final By toastText = By.cssSelector(".oxd-toast-content.oxd-toast-content--success']");
-
     private final By validNotify = By.xpath("//span[@class='oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message']");
 
     private final By accessRecords = By.xpath("//a[@class='oxd-topbar-body-nav-tab-item']");
@@ -61,13 +54,11 @@ public class MaintenancePage extends BasePage {
 
     public void searchAboutPastEmployee(String pastEmployeeName){
         set(searchTextarea, pastEmployeeName);
-        //click(searchButton);
     }
 
     public boolean isEmployeeNotFound(){
         waitUntilTextIsNot(dropdownSearch, baseTextDropdown);
         return find(dropdownSearch).getText().contains("No Records Found");
-        //return find(validNotify).getText().contains("Invalid");
     }
 
     public void goToPurgeCandidateRecords(){
@@ -111,5 +102,4 @@ public class MaintenancePage extends BasePage {
     public boolean isPersonalDataDownloaded(){
         return isNewTabOpenedAfterAction(downloadButton);
     }
-
 }
