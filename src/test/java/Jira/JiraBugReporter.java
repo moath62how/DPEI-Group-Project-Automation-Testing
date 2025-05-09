@@ -17,7 +17,6 @@ public class JiraBugReporter {
     private static final String JIRA_API = "/rest/api/3/issue";
     private static final String PROJECT_KEY = "FP";
 
-    // Environment variables for credentials
     private static final String EMAIL = System.getenv("JIRA_EMAIL");
     private static final String API_TOKEN = System.getenv("JIRA_API_TOKEN");
 
