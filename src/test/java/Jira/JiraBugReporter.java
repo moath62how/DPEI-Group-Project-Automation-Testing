@@ -27,11 +27,9 @@ public class JiraBugReporter {
         }
 
         try {
-            // Basic Auth encoding
             String auth = EMAIL + ":" + API_TOKEN;
             String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
 
-            // Construct JSON payload
             JSONObject payload = new JSONObject();
             JSONObject fields = new JSONObject();
             fields.put("summary", summary);
