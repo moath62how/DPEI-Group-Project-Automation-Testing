@@ -4,6 +4,7 @@
     <test name="All Functional Tests">
         <classes>
             <class name="claim.ViewClaimTest"/>
+            <class name="claim.CreateClaimTest"/>
             <class name="MyInfoTest.PersonalDetailsTest"/>
             <class name="AdminPageTest"/>
             <class name="DirectoryTest"/>
@@ -11,7 +12,10 @@
             <class name="PerformancePageTest"/>
             <class name="RecruitmentTest"/>
             <class name="BuzzTest"/>
+            <class name="DashboardPageTest"/>
+            <class name="PimPageTest"/>
             <class name="MaintenanceTest"/>
+        <class name="timeTab.EmployeeTimesheetsTest" />
         </classes>
     </test>
     <test name="Performance Tests">

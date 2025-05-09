@@ -14,7 +14,7 @@ public class LoginPage extends BasePage {
 		set(usernameFieldLocator, username);
 		set(passwordFieldLocator, password);
 		click(submitButtonLocator);
-		DashboardPage dashboard = new DashboardPage();
+		DashboardPage dashboard = new DashboardPage(this.driver);
 		dashboard.setDriver(this.driver);
 		return dashboard;
 	}

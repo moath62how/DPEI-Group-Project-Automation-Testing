@@ -11,11 +11,10 @@ public class ViewClaimsPage extends BasePage {
 	private final By toDateField = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[2]/div/div[2]/div/div[2]/div/div/input");
 	private final By employeeNameField = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[1]/div/div[1]/div/div[2]/div/div/input");
 	private final By referenceIdField = By.xpath("/html/body/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[1]/div/div[2]/div/div[2]/div/div/input");
-	private final By resetButton = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[3]/button[1]");
 	private final By searchButton = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[3]/button[2]");
 	private final By searchResultNumber = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div[2]/div[2]/div/span");
 	private final By dateErrorMessage = By.xpath("//span[@class='oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message']");
-
+    private final By assignClaimBtn = By.xpath("//*[@id=\"app\"]/div[1]/div[1]/header/div[2]/nav/ul/li[2]/a");
 	public void searchQuery(String employeeName, String fromDate, String toDate, String referenceId, String include, String eventName, String status) {
 		setHintField(employeeNameField, employeeName);
 		set(fromDateField, fromDate);
@@ -39,5 +38,8 @@ public class ViewClaimsPage extends BasePage {
 			return false;
 		}
 	}
-
+	public CreateClaimsPage navigateToCrateAClaim(){
+		click(assignClaimBtn);
+		return new CreateClaimsPage();
+	}
 }
