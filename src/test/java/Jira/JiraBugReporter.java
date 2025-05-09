@@ -6,6 +6,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.config.RequestConfig;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -15,17 +16,11 @@ public class JiraBugReporter {
 
     private static final String JIRA_URL = "https://yassmenhussin105.atlassian.net";
     private static final String JIRA_API = "/rest/api/3/issue";
+    private static final String EMAIL = "yassmenhussin105@gmail.com";
+    private static final String API_TOKEN = "ATATT3xFfGF0LZhgHwE-Pjaprr0KPZ5GYWGWF9_ixoT-9p6G-wywcszF5O5Iurp49wNauGhIH88LLhUT-lYKUIVXil-iHflVh9Z4lV_IKmoab6qa9dLWZU7dXbQ7HADqoTsvnYsTAviwJ7e6O8p3dmx-4hE5gW9LAHQaDKD5qFCvZsdKtfdm-sA=9963898F";
     private static final String PROJECT_KEY = "FP";
 
-    private static final String EMAIL = System.getenv("JIRA_EMAIL");
-    private static final String API_TOKEN = System.getenv("JIRA_API_TOKEN");
-
     public static void createIssue(String summary, String description) {
-        if (EMAIL == null || API_TOKEN == null) {
-            System.err.println("Error: JIRA_EMAIL or JIRA_API_TOKEN environment variable not set.");
-            return;
-        }
-
         try {
             String auth = EMAIL + ":" + API_TOKEN;
             String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
@@ -36,7 +31,6 @@ public class JiraBugReporter {
             fields.put("issuetype", new JSONObject().put("name", "Bug"));
             fields.put("project", new JSONObject().put("key", PROJECT_KEY));
 
-            // Build ADF (Atlassian Document Format) description
             JSONObject descriptionADF = new JSONObject();
             descriptionADF.put("type", "doc");
             descriptionADF.put("version", 1);
@@ -59,19 +53,17 @@ public class JiraBugReporter {
 
             payload.put("fields", fields);
 
-            // HTTP POST request to Jira API
-            try (CloseableHttpClient client = HttpClients.createDefault()) {
-                HttpPost post = new HttpPost(JIRA_URL + JIRA_API);
-                post.setHeader("Authorization", "Basic " + encodedAuth);
-                post.setHeader("Content-Type", "application/json");
-                post.setEntity(new StringEntity(payload.toString()));
+            CloseableHttpClient client = HttpClients.createDefault();
+            HttpPost post = new HttpPost(JIRA_URL + JIRA_API);
+            post.setHeader("Authorization", "Basic " + encodedAuth);
+            post.setHeader("Content-Type", "application/json");
+            post.setEntity(new StringEntity(payload.toString()));
 
-                HttpResponse response = client.execute(post);
-                String result = EntityUtils.toString(response.getEntity());
-                System.out.println("Jira Response: " + result);
-            }
+            HttpResponse response = client.execute(post);
+            String result = EntityUtils.toString(response.getEntity());
+            System.out.println("Jira Response: " + result);
+            client.close();
         } catch (Exception e) {
-            System.err.println("Failed to create Jira issue: " + e.getMessage());
             e.printStackTrace();
         }
     }
