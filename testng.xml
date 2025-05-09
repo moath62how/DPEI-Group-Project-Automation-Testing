@@ -14,4 +14,9 @@
             <class name="MaintenanceTest"/>
         </classes>
     </test>
+    <test name="Performance Tests">
+        <classes>
+            <class name="preformanceTesting.JMeterTestNG"/>
+        </classes>
+    </test>
 </suite>
