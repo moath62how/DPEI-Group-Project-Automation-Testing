@@ -80,7 +80,7 @@ This project is part of the **DEPI** course, developed by the **ONL2_SWD6_S1** t
 4. View test reports and analyze results.
 
 
-📌 **Repository Link**: [GitHub]([https://github.com/your-repo-link](https://github.com/moath62how/DPEI-Group-Project-Automation-Testing))  
+📌 **Repository Link**: [GitHub](https://github.com/moath62how/DPEI-Group-Project-Automation-Testing))  
 
 🚀 **Contributions & Feedback**: Feel free to open issues or pull requests!
 
