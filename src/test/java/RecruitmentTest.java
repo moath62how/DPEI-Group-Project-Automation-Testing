@@ -42,7 +42,7 @@ public class RecruitmentTest extends BaseTest {
 	public void validateDateFilters(){
 	String fromDateStr = "2022-1-1" , toDateStr = "2024-1-1";
 		recruitmentPage.searchQuery("", "", "", "",fromDateStr , toDateStr, "", "", "");
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-d-M");
 		boolean isDateValid = true;
 		LocalDate fromDate = LocalDate.parse(fromDateStr, formatter);
 		LocalDate toDate = LocalDate.parse(toDateStr, formatter);

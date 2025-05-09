@@ -57,9 +57,7 @@ public class PersonalDetailsPage extends BasePage {
 	}
 
 	public void selectNationality(String nationality) {
-		click(nationalityDropdown);
-		By nationalityOption = By.xpath(String.format("//span[text()='%s']", nationality));
-		click(nationalityOption);
+		setDropDown(nationalityDropdown,nationality);
 	}
 
 	public void selectBloodType(String bloodType) {

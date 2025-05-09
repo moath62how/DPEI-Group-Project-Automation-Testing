@@ -11,26 +11,27 @@ import org.testng.annotations.*;
 
 import java.time.Duration;
 
-public class DirectoryTest extends BaseTest {
+public class DirectoryTest {
 
     WebDriver driver;
-    @BeforeTest
+    @BeforeMethod
     public void loginToSystem() {
         driver = new ChromeDriver();
+//        System.out.println("Driver is created");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
         driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
 
         driver.findElement(By.name("username")).sendKeys("Admin");
         driver.findElement(By.name("password")).sendKeys("admin123");
         driver.findElement(By.cssSelector("button[type='submit']")).click();
+        driver.navigate().to("https://opensource-demo.orangehrmlive.com/web/index.php/directory/viewDirectory");
+    }
+    @AfterMethod
+    public void tearDown(){
+        driver.quit();
     }
 
-    @BeforeClass
-    public void setup() {
-        driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/directory/viewDirectory");
-    }
 
     @Test
     public void testDropdownSelection() {
@@ -120,4 +121,5 @@ public class DirectoryTest extends BaseTest {
 
         System.out.println("Reset button works as expected and all fields were cleared.");
     }
+
 }

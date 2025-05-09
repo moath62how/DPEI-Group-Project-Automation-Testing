@@ -32,5 +32,12 @@ public class PersonalDetailsTest extends BaseTest {
 		personalDetailsPage.savePersonalDetailsData();
 		Assert.assertFalse(personalDetailsPage.isPopupAlertDisplayed());
 	}
-
+	@Test
+	public void testValidScenario(){
+	personalDetailsPage.updateEmployeeName("Moath","Hussam","Syam");
+	personalDetailsPage.updateDriverLicenseInfo("546456","2030-1-1");
+	personalDetailsPage.selectNationality("Egyptian");
+	personalDetailsPage.savePersonalDetailsData();
+	Assert.assertTrue(personalDetailsPage.isPopupAlertDisplayed());
+	}
 }

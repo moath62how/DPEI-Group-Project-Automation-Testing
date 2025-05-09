@@ -17,10 +17,9 @@ public class ViewClaimTest extends BaseTest {
 	public void login ()  {
 		loginPage.login("Admin","admin123");
 		var wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		By ClaimLocator = By.xpath("/html/body/div/div[1]/div[1]/aside/nav/div[2]/ul/li[10]/a/span");
+		By ClaimLocator = By.xpath("//*[@id=\"app\"]/div[1]/div[1]/aside/nav/div[2]/ul/li[11]/a/span");
 		// Wait and click cause this caused me headache
 		wait.until(ExpectedConditions.visibilityOfElementLocated(ClaimLocator)).click();
-		System.out.println("Test");
 		viewClaimsPage = new ViewClaimsPage();
 	}
 	@Test
