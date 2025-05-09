@@ -16,7 +16,7 @@
     </test>
     <test name="Performance Tests">
         <classes>
-            <class name="preformanceTesting.JMeterTestNG"/>
+            <class name="preformanceTesting.PerformanceTest"/>
         </classes>
     </test>
 </suite>
